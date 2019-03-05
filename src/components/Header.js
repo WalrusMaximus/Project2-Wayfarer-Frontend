@@ -14,12 +14,6 @@ export default class Header extends Component {
       borderRadius: 0
     }
 
-    let searchStyle = {
-      marginLeft: '20px',
-      marginTop: 'auto',
-      marginBottom: 'auto'
-    }
-
     const { activeItem } = this.state
     return (
       <Menu style={menuStyle} stackable inverted>
@@ -31,7 +25,9 @@ export default class Header extends Component {
           Wayfarer
         </Menu.Item>
 
-        <Search style={searchStyle} size='small' />
+        <Menu.Item>
+          <Search size='small' />
+        </Menu.Item>
 
         <Menu.Menu position='right'>
           <Dropdown item text='Profile'>
