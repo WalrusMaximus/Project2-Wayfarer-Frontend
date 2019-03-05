@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dropdown, Menu, Search } from 'semantic-ui-react'
+import { Dropdown, Menu, Search } from 'semantic-ui-react'
 
 
 export default class Header extends Component {
