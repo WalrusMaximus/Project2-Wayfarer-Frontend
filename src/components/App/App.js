@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router} from 'react-router-dom'
-import {
-  Route,
-  Switch
-} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom';
+
 import axios from 'axios'
 import Header from '../Header';
 import Header2 from '../Header2';
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
+import ListingContainer from '../listing/ListingContainer'
 import './App.css';
 
 class App extends Component {
@@ -19,31 +18,31 @@ class App extends Component {
     user: null
   }
 
-  componentDidMount () {
-    if (localStorage.token) {
-      axios({
-        method: 'get',
-        url: `http://localhost:3001/users/`,
-        headers: {authorization: `Bearer ${localstorage.token}`}
-      })
-    .then( response => {
-      this.setState({
-        isLoggedIn: true,
-        user: response.data.user // ????? .user?
-      })
-    })
-    .catch(err => {
-      this.setState({
-        isLoggedIn: false // ??? does this need to be here
-      })
-      localStorage.clear()
-    })
-  } else {
-    this.setState({
-      isLoggedIn = false
-    })
-  }
-}
+  // componentDidMount() {
+  //   if (localStorage.token) {
+  //     axios({
+  //       method: 'get',
+  //       url: `http://localhost:3001/users/`,
+  //       headers: { authorization: `Bearer ${localstorage.token}` }
+  //     })
+  //       .then(response => {
+  //         this.setState({
+  //           isLoggedIn: true,
+  //           user: response.data.user // ????? .user?
+  //         })
+  //       })
+  //       .catch(err => {
+  //         this.setState({
+  //           isLoggedIn: false
+  //         })
+  //         localStorage.clear()
+  //       })
+  //   } else {
+  //     this.setState({
+  //       isLoggedIn = false
+  //     })
+  //   }
+  // }
 
   handleInput = (event) => {
     this.setState({
@@ -51,38 +50,39 @@ class App extends Component {
     })
   }
 
-  handleSignUp(event){
+  handleSignUp(event) {
     event.preventDefault();
     axios.post('http://localhost:3001/users/signup',
-    { email: this.state.email,
-      password: this.state
-    })
-    .then( response => {
-      console.log(response)
-      localStorage.token = response.data.signedJwt
-
-      this.setState({
-        isLoggedIn: true,
-        user: response.data.user
+      {
+        email: this.state.email,
+        password: this.state
       })
-    })
-    .catch(err => console.log(err))
+      .then(response => {
+        console.log(response)
+        localStorage.token = response.data.signedJwt
+
+        this.setState({
+          isLoggedIn: true,
+          user: response.data.user
+        })
+      })
+      .catch(err => console.log(err))
   }
 
-  handleLogIn(event){
-    e.preventDefault();
+  handleLogIn(event) {
+    event.preventDefault();
     axios.post('http://localhost:3001/users/login', { // we need to be able to connect this to heroku as well
       email: this.state.email,
       password: this.state.password
     })
-    .then( response => {
-      localStorage.token = response.data.signedJwt
-      this.setState({
-        isLoggedIn: true,
-        user: response.data.user
+      .then(response => {
+        localStorage.token = response.data.signedJwt
+        this.setState({
+          isLoggedIn: true,
+          user: response.data.user
+        })
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   handleLogOut = () => {
@@ -97,15 +97,35 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div className="App">
-          {/* <Header />
-          <ListingContainer /> */}
-          <Header2 />
-          <Landing />
-          <Copyright />
+      <div>
+        <Header />
+        <div className='body'>
+          <Switch>
+            <Route exact path='/'
+              render={(props) => {
+                return (
+                  <div>
+                    <Landing />
+                    <Copyright />
+                  </div>
+
+                )
+              }}
+            />
+            <Route path='/city'
+              render={(props) => {
+                return (
+                  <div>
+                    <ListingContainer />
+                    <Copyright />
+                  </div>
+
+                )
+              }}
+            />
+          </Switch>
         </div>
-      </Router>
+      </div>
     );
   }
 }
