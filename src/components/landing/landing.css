@@ -1,7 +1,11 @@
+
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 .carousel {
     height: 50vh;
     width: 100%;
-    margin-top: 12.5vh;
+    margin-bottom: 2.5vh;
 }
 
 .landing-about {
@@ -9,12 +13,6 @@
     width: 100%;
     margin: 2.5vh 0;
     display: flex;
-}
-
-p img {
-    border: .5rem solid rgba(0,0,0,.4);
-    border-radius: 1em;
-    max-height: 20%;
 }
 
 .copyright {
