@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Dropdown, Menu, Search } from 'semantic-ui-react'
+import { Dropdown, Menu, Button } from 'semantic-ui-react'
 
 
-export default class Header extends Component {
+export default class Header2 extends Component {
   state = {}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -26,18 +26,14 @@ export default class Header extends Component {
           Wayfarer
         </Menu.Item>
 
-        <Menu.Item>
-          <Search size='small' />
+        <Menu.Item position='right'>
+          <Button primary>Sign up</Button>
         </Menu.Item>
 
-        <Menu.Menu position='right'>
-          <Dropdown item text='Profile'>
-            <Dropdown.Menu>
-              <Dropdown.Item>View Profile</Dropdown.Item>
-              <Dropdown.Item>Sign Out</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Menu.Menu>
+        <Menu.Item>
+          <Button>Log-in</Button>
+        </Menu.Item>
+
       </Menu>
     )
   }
