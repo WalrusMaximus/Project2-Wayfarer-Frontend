@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import axios from 'axios'
 import Header from '../Header';
+import SignIn from '../SignIn';
 import Header2 from '../Header2';
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
@@ -50,12 +51,12 @@ class App extends Component {
     })
   }
 
-  handleSignUp(event) {
+  handleSignUp = (event) => {
     event.preventDefault();
     axios.post('http://localhost:3001/users/signup',
       {
         email: this.state.email,
-        password: this.state
+        password: this.state.password
       })
       .then(response => {
         console.log(response)
@@ -69,7 +70,7 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  handleLogIn(event) {
+  handleLogIn = (event) => {
     event.preventDefault();
     axios.post('http://localhost:3001/users/login', { // we need to be able to connect this to heroku as well
       email: this.state.email,
@@ -98,14 +99,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header isLoggedIn={this.state.isLoggedIn} />
         <div className='body'>
           <Switch>
             <Route exact path='/'
               render={(props) => {
                 return (
                   <div>
-                    <Landing />
+                    {/* <Landing /> */}
+                    <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
                     <Copyright />
                   </div>
 
