@@ -4,15 +4,10 @@ import { Switch, Route } from 'react-router-dom';
 
 import axios from 'axios'
 import Header from '../Header';
-import SignIn from '../SignIn';
-<<<<<<< HEAD
-=======
-import SignUp from '../SignUp';
-import ProfileContainer from '../profile/ProfileContainer';
->>>>>>> 64acccbc51e7223ce8f2441837231f549a2bf3f3
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
 import ListingContainer from '../listing/ListingContainer'
+import PostContainer from '../profile/ProfileContainer'
 import './App.css';
 
 class App extends Component {
@@ -127,6 +122,17 @@ class App extends Component {
                 return (
                   <div>
                     <ListingContainer />
+                    <Copyright />
+                  </div>
+
+                )
+              }}
+            />
+            <Route path='/profile'
+              render={(props) => {
+                return (
+                  <div>
+                    <PostContainer />
                     <Copyright />
                   </div>
 

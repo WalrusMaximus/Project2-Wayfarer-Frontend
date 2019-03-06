@@ -4,12 +4,10 @@ import { Button, Header, Image, Modal, Form } from 'semantic-ui-react'
 export default class SignIn extends Component {
   render() {
     return (
-      <Modal trigger={<Button>Sign up</Button>}>
-      <Modal.Header>Sign up or Log in</Modal.Header>
+      <Modal trigger={<Button>Log In</Button>}>
+      <Modal.Header>Log in</Modal.Header>
       <Modal.Content>
-        <Image wrapped size='medium' src='/images/avatar/large/rachel.png' />
         <Modal.Description>
-          <Header>Default Profile Image</Header>
           <Form>
               <h1>Sign In</h1>
               <Form.Field>

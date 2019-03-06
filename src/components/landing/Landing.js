@@ -10,8 +10,6 @@ class Landing extends Component {
             <div>
                 <Carousel />
                 <About />
-                <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
-                {/* <SignInModal /> */}
             </div>
         );
     }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Menu, Search } from 'semantic-ui-react'
+import Signin from './SignIn'
+import Signup from './SignUp'
 
 
 export default class Header extends Component {
@@ -54,11 +56,11 @@ export default class Header extends Component {
         </Menu.Item>
 
           <Menu.Item position='right'>
-            <Button primary>Sign up</Button>
+            <Signup />
           </Menu.Item>
 
           <Menu.Item>
-            <Button>Log-in</Button>
+            <Signin />
           </Menu.Item>
 
         </Menu>
