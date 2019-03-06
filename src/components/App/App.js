@@ -5,6 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 import Header from '../Header';
 import SignIn from '../SignIn';
+<<<<<<< HEAD
+=======
+import SignUp from '../SignUp';
+import ProfileContainer from '../profile/ProfileContainer';
+>>>>>>> 64acccbc51e7223ce8f2441837231f549a2bf3f3
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
 import ListingContainer from '../listing/ListingContainer'
@@ -12,6 +17,8 @@ import './App.css';
 
 class App extends Component {
   state = {
+    name: '',
+    userName: '',
     email: '',
     password: '',
     isLoggedIn: false,
@@ -54,8 +61,11 @@ class App extends Component {
     event.preventDefault();
     axios.post('http://localhost:3001/users/signup',
       {
+        name: this.state.name,
+        userName: this.state.userName,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+
       })
       .then(response => {
         console.log(response)
@@ -112,7 +122,7 @@ class App extends Component {
                 )
               }}
             />
-            <Route path='/city'
+            <Route path='/listings'
               render={(props) => {
                 return (
                   <div>
