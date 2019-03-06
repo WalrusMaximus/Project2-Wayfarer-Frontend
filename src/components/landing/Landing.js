@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import About from './About';
 import Carousel from './Carousel';
+import SignIn from '../SignIn'
 import './landing.css'
 
 class Landing extends Component {
@@ -9,6 +10,7 @@ class Landing extends Component {
             <div>
                 <Carousel />
                 <About />
+                <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
                 {/* <SignInModal /> */}
             </div>
         );

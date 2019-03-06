@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { Grid, Image, Segment } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 class carousel extends React.Component {
   render() {
     let settings = {

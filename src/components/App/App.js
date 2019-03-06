@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 import Header from '../Header';
 import SignIn from '../SignIn';
-import Header2 from '../Header2';
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
 import ListingContainer from '../listing/ListingContainer'
@@ -106,8 +105,7 @@ class App extends Component {
               render={(props) => {
                 return (
                   <div>
-                    {/* <Landing /> */}
-                    <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
+                    <Landing />
                     <Copyright />
                   </div>
 
