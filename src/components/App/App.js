@@ -5,7 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 import Header from '../Header';
 import SignIn from '../SignIn';
-import Header2 from '../Header2';
+import SignUp from '../SignUp';
+import ProfileContainer from '../profile/ProfileContainer';
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
 import ListingContainer from '../listing/ListingContainer'
@@ -13,6 +14,8 @@ import './App.css';
 
 class App extends Component {
   state = {
+    name: '',
+    userName: '',
     email: '',
     password: '',
     isLoggedIn: false,
@@ -55,8 +58,11 @@ class App extends Component {
     event.preventDefault();
     axios.post('http://localhost:3001/users/signup',
       {
+        name: this.state.name,
+        userName: this.state.userName,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+
       })
       .then(response => {
         console.log(response)
@@ -106,15 +112,17 @@ class App extends Component {
               render={(props) => {
                 return (
                   <div>
+                    {/* <ProfileContainer /> */}
                     {/* <Landing /> */}
-                    <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
-                    <Copyright />
+                    {/* <SignIn handleInput={this.handleInput} handleLogIn={this.handleLogIn} /> */}
+                    {/* <SignUp handleInput={this.handleInput} handleSignUp={this.handleSignUp} /> */}
+                    {/* <Copyright /> */}
                   </div>
 
                 )
               }}
             />
-            <Route path='/city'
+            <Route path='/listings'
               render={(props) => {
                 return (
                   <div>

@@ -14,7 +14,7 @@ export default class SignIn extends Component {
           <label>Password</label>
           <input name='password' placeholder='Password' onChange={this.props.handleInput} />
         </Form.Field>
-        <Button type='submit' onClick={this.props.handleLogIn}>Sign In</Button>
+        <Button type='submit' onClick={this.props.handleLogIn} primary>Sign In</Button>
       </Form>
     )
   }
