@@ -4,20 +4,24 @@ import { Grid, Image, Segment } from 'semantic-ui-react'
 class carousel extends React.Component {
   render() {
     let settings = {
-      dots: true,
       infinite: true,
-      speed: 500,
+      speed: 1000,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 6000
     };
     return (
         <Slider {...settings}>
-            <Image src='/images/carousel1.jpg' />    
-            <Image src='/images/carousel2.jpg' />
-            <Image src='/images/carousel3.jpg' />
-            <Image src='/images/carousel1.jpg' />
-            <Image src='/images/carousel2.jpg' />
-            <Image src='/images/carousel3.jpg' />
+          <div className="carouselWrapper">
+            <Image src='/images/carousel1.jpg' size='huge' />
+          </div>
+          <div className="carouselWrapper">  
+            <Image src='/images/carousel2.jpg' size='huge' />
+          </div>
+          <div className="carouselWrapper">
+            <Image src='/images/carousel3.jpg' size='huge' />
+          </div>
         </Slider>
     );
   }
