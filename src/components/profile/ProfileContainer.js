@@ -5,12 +5,24 @@ import ProfilePosts from './ProfilePosts';
 
 export default class ProfileContainer extends Component {
   render() {
+
+    let gridMargin = {
+      margin: "0",
+      padding: "1em",
+      paddingTop: "2em"
+    }
+
+    let leftGrid = {
+      paddingTop: "2em",
+      paddingLeft: "3em"
+    }
+
     return (
-      <Grid>
-        <Grid.Column width={5}>
+      <Grid centered>
+        <Grid.Column width={5} style={leftGrid}>
           <Profile />
         </Grid.Column>
-        <Grid.Column width={11}>
+        <Grid.Column width={11} style={gridMargin}>
           <ProfilePosts />
         </Grid.Column>
       </Grid>
