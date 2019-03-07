@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Image, Divider } from 'semantic-ui-react'
+import { Segment, Image, Divider, SegmentGroup } from 'semantic-ui-react'
 
 
 export default class City extends Component {
@@ -7,7 +7,12 @@ export default class City extends Component {
 
     return (
       <div>
-        <Segment.Group>
+
+        <SegmentGroup >
+
+        </SegmentGroup>
+
+        {/* <Segment.Group>
           <Image src={"images/carousel1.jpg"} size='tiny' verticalAlign='middle' /> <span>San Francisco, CA</span>
           <Divider />
           <Image src={"images/carousel1.jpg"} size='tiny' verticalAlign='middle' /> <span>San Francisco, CA</span>
@@ -20,7 +25,7 @@ export default class City extends Component {
           <Divider />
           <Image src={"images/carousel1.jpg"} size='tiny' verticalAlign='middle' /> <span>San Francisco, CA</span>
           <Divider />
-        </Segment.Group>
+        </Segment.Group> */}
       </div>
     )
   }
