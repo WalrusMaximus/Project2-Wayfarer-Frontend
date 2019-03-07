@@ -19,7 +19,7 @@
 .image {
     margin-left: auto;
     margin-right: auto;
-
+    margin-top: 1em;
 }
 
 .landing-about {
@@ -31,8 +31,8 @@
 
 .copyright {
     position: fixed;
-    left: 1%;
-    bottom: 1%;
+    left: 1em;
+    bottom: 1em;
 }
 
 .slick-dots {

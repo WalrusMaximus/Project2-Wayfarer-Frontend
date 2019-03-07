@@ -1,14 +1,14 @@
 import React from 'react'
-import { Grid, Image, Segment } from 'semantic-ui-react'
+import { Grid, Image, Segment, Divider } from 'semantic-ui-react'
 
 let aboutImageStyle = {
     marginLeft: 'auto',
     marginRight: 'auto'
 }
 
-const DividerExampleVertical = () => (
+const aboutGrid = () => (
   <Segment>
-    <Grid columns={3} relaxed='very'>
+    <Grid columns={3} stackable>
       <Grid.Column>
         <p>
           <Image style={aboutImageStyle}src='/images/carousel1.jpg' size="medium" />
@@ -31,4 +31,4 @@ const DividerExampleVertical = () => (
   </Segment>
 )
 
-export default DividerExampleVertical
+export default aboutGrid
