@@ -10,7 +10,8 @@ export default class ListingContainer extends Component {
       <div>
         <Grid>
           <Grid.Column width={5}>
-            <CitiesContainer />
+            <CitiesContainer displayListing={this.props.displayListing}
+            cities={this.props.cities}/>
           </Grid.Column>
           <Grid.Column width={11}>
             <Listing />
