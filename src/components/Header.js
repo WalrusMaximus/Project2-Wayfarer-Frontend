@@ -21,7 +21,7 @@ export default class Header extends Component {
 
     if (this.props.isLoggedIn) {
       return (
-        <Menu style={menuStyle} stackable inverted>
+        <Menu style={menuStyle} inverted>
           <Menu.Item>
             <img src='https://react.semantic-ui.com/logo.png' />
           </Menu.Item>
@@ -46,7 +46,7 @@ export default class Header extends Component {
       )
     } else {
       return (
-        <Menu style={menuStyle} stackable inverted>
+        <Menu style={menuStyle} inverted>
           <Menu.Item>
             <img src='https://react.semantic-ui.com/logo.png' />
           </Menu.Item>
