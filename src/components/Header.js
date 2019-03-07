@@ -38,7 +38,7 @@ export default class Header extends Component {
             <Dropdown item text='Profile'>
               <Dropdown.Menu>
                 <Dropdown.Item>View Profile</Dropdown.Item>
-                <Dropdown.Item>Sign Out</Dropdown.Item>
+                <Dropdown.Item><input name="logout" onChange={this.props.handleLogOut} />Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>

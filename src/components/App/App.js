@@ -98,6 +98,16 @@ class App extends Component {
     localStorage.clear()
   }
 
+  displayListing = () => {
+    axios.get('https://damp-citadel-74040.herokuapp.com/cities')
+      .then(response => {
+        console.log('found listings')
+        res.send(response);
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data for listings', error);
+    });
+  }
 
   render() {
     return (
@@ -135,13 +145,13 @@ class App extends Component {
                 )
               }}
             />
-            <Route path='/logout'
+            {/* <Route path='/logout'
               render={(props) => {
                 return (
                   <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
                 )
               }}
-            />
+            /> */}
           </Switch>
         </div>
       </div>
