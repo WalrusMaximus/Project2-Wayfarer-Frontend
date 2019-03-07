@@ -38,7 +38,11 @@ export default class Header extends Component {
             <Dropdown item text='Profile'>
               <Dropdown.Menu>
                 <Dropdown.Item>View Profile</Dropdown.Item>
+<<<<<<< HEAD
                 <Dropdown.Item onClick={this.props.handleLogOut}>Sign Out</Dropdown.Item>
+=======
+                <Dropdown.Item><input name="logout" onChange={this.props.handleLogOut} />Sign Out</Dropdown.Item>
+>>>>>>> 69481933f53c03014bd6132afa6f16ecf7376bb3
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>

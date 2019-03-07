@@ -103,6 +103,16 @@ class App extends Component {
     localStorage.clear()
   }
 
+  displayListing = () => {
+    axios.get('https://damp-citadel-74040.herokuapp.com/cities')
+      .then(response => {
+        console.log('found listings')
+        res.send(response);
+      })
+      .catch(error => {
+        console.log('Error fetching and parsing data for listings', error);
+    });
+  }
 
   render() {
     return (
@@ -152,6 +162,7 @@ class App extends Component {
             />
             <Route path='/profile'
               render={(props) => {
+<<<<<<< HEAD
                 if (localStorage.token) {
                   return (
                     <div>
@@ -167,8 +178,23 @@ class App extends Component {
                     </div>
                   )
                 }
+=======
+                return (
+                  <div>
+                    <PostContainer />
+                    <Copyright />
+                  </div>
+                )
               }}
             />
+            {/* <Route path='/logout'
+              render={(props) => {
+                return (
+                  <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
+                )
+>>>>>>> 69481933f53c03014bd6132afa6f16ecf7376bb3
+              }}
+            /> */}
           </Switch>
         </div>
       </div>
