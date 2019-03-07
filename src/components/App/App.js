@@ -59,8 +59,7 @@ class App extends Component {
         name: this.state.name,
         userName: this.state.userName,
         email: this.state.email,
-        password: this.state.password,
-
+        password: this.state.password
       })
       .then(response => {
         console.log(response)
