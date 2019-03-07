@@ -20,7 +20,8 @@ class App extends Component {
     password: '',
     isLoggedIn: false,
     user: null,
-    redirect: false
+    redirect: false,
+    cities: []
   }
 
   componentDidMount() {
@@ -47,6 +48,7 @@ class App extends Component {
         isLoggedIn: false
       })
     }
+    this.displayListing();
   }
 
   handleInput = (event) => {
@@ -105,18 +107,34 @@ class App extends Component {
 
   displayListing = () => {
     axios.get('https://damp-citadel-74040.herokuapp.com/cities')
-      .then(response => {
+      .then((res) => {
         console.log('found listings')
-        res.send(response);
+        this.setState({
+          cities: res.data
+        })
       })
       .catch(error => {
         console.log('Error fetching and parsing data for listings', error);
     });
   }
 
+  // displayPosts = () => {
+  //   axios.get('https://damp-citadel-74040.herokuapp.com/posts')
+  //     .then(response => {
+  //       console.log('found posts')
+  //       // res.send(response);
+  //     })
+  //     .catch(error => {
+  //       console.log('Error fetching and parsing data for posts', error);
+  //   });
+  // }
+
+
   render() {
+    
     return (
       <div>
+        {/* <div>{cityComponents}</div> */}
         <Header
           handleSignUp={this.handleSignUp}
           isLoggedIn={this.state.isLoggedIn}
@@ -146,7 +164,8 @@ class App extends Component {
                 if (localStorage.token) {
                   return (
                     <div>
-                      <ListingContainer />
+                      <ListingContainer displayListing={this.displayListing} 
+                      cities={this.state.cities}/>
                       <Copyright />
                     </div>
                   )
@@ -162,7 +181,6 @@ class App extends Component {
             />
             <Route path='/profile'
               render={(props) => {
-<<<<<<< HEAD
                 if (localStorage.token) {
                   return (
                     <div>
@@ -178,21 +196,6 @@ class App extends Component {
                     </div>
                   )
                 }
-=======
-                return (
-                  <div>
-                    <PostContainer />
-                    <Copyright />
-                  </div>
-                )
-              }}
-            />
-            {/* <Route path='/logout'
-              render={(props) => {
-                return (
-                  <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
-                )
->>>>>>> 69481933f53c03014bd6132afa6f16ecf7376bb3
               }}
             /> */}
           </Switch>
