@@ -38,7 +38,7 @@ export default class Header extends Component {
             <Dropdown item text='Profile'>
               <Dropdown.Menu>
                 <Dropdown.Item>View Profile</Dropdown.Item>
-                <Dropdown.Item>Sign Out</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.handleLogOut}>Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>
@@ -56,11 +56,11 @@ export default class Header extends Component {
         </Menu.Item>
 
           <Menu.Item position='right'>
-            <Signup />
+            <Signup handleSignUp={this.props.handleSignUp} handleInput={this.props.handleInput} />
           </Menu.Item>
 
           <Menu.Item>
-            <Signin />
+            <Signin handleLogIn={this.props.handleLogIn} handleInput={this.props.handleInput} />
           </Menu.Item>
 
         </Menu>

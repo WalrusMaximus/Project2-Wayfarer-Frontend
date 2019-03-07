@@ -7,7 +7,7 @@ export default class Listing extends Component {
     return (
       <div>
         <Segment>
-          <Image src={'https://amp.businessinsider.com/images/5ad8ae04cd862425008b4898-750-563.jpg'} size='medium'  />
+          <Image src={'https://amp.businessinsider.com/images/5ad8ae04cd862425008b4898-750-563.jpg'} size='medium' />
           <Header as='h2'>San Francisco</Header>
           <Header as='h3'>United States</Header>
         </Segment>
