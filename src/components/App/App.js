@@ -162,7 +162,6 @@ class App extends Component {
             />
             <Route path='/profile'
               render={(props) => {
-<<<<<<< HEAD
                 if (localStorage.token) {
                   return (
                     <div>
@@ -178,21 +177,6 @@ class App extends Component {
                     </div>
                   )
                 }
-=======
-                return (
-                  <div>
-                    <PostContainer />
-                    <Copyright />
-                  </div>
-                )
-              }}
-            />
-            {/* <Route path='/logout'
-              render={(props) => {
-                return (
-                  <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
-                )
->>>>>>> 69481933f53c03014bd6132afa6f16ecf7376bb3
               }}
             /> */}
           </Switch>
