@@ -89,14 +89,14 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-//   handleLogOut = () => {
-//     this.setState({
-//       email: '',
-//       password: '',
-//       isLoggedIn: false
-//     })
-//     localStorage.clear()
-//   }
+  handleLogOut = () => {
+    this.setState({
+      email: '',
+      password: '',
+      isLoggedIn: false
+    })
+    localStorage.clear()
+  }
 
 
   render() {
@@ -112,7 +112,6 @@ class App extends Component {
                     <Landing />
                     <Copyright />
                   </div>
-
                 )
               }}
             />
@@ -123,7 +122,6 @@ class App extends Component {
                     <ListingContainer />
                     <Copyright />
                   </div>
-
                 )
               }}
             />
@@ -134,7 +132,13 @@ class App extends Component {
                     <PostContainer />
                     <Copyright />
                   </div>
-
+                )
+              }}
+            />
+            <Route path='/logout'
+              render={(props) => {
+                return (
+                  <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
                 )
               }}
             />
