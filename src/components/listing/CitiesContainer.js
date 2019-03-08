@@ -14,7 +14,7 @@ export default class CitiesContainer extends Component {
         <City
           displayListing={this.props.displayListing}
           city={city} key={index}
-          // on click update state in listing container and filter posts based on update city
+          // send down function setCityID from app.js
           setCityId={this.props.setCityId}
         />
       )

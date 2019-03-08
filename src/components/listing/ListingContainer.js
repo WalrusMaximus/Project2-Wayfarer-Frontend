@@ -8,11 +8,11 @@ export default class ListingContainer extends Component {
 
   // update state based on selected city 
   // place for listing and posts once they come back from req
-  state = {
-    listing: [],
-    posts: [],
-    city: this.props.CitiesContainer
-  }
+  // state = {
+  //   listing: [],
+  //   posts: [],
+  //   city: this.props.CitiesContainer
+  // }
 
   
 
@@ -22,8 +22,6 @@ export default class ListingContainer extends Component {
       backgroundColor: '#f2f2f2',
       margin: 0
     }
-
-    // on click update state, selected city on click function. post if then filtered by state that is passed down to it
 
     return (
       <div>
