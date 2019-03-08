@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, browserHistory } from "react-router-dom";
 
 import axios from "axios";
 import Header from "../Header";
@@ -82,7 +82,7 @@ class App extends Component {
     event.preventDefault();
     console.log("its working!!!!!!!!!!!");
     axios
-      .post("http://localhost:3001/users/login", {
+      .post("https://damp-citadel-74040.herokuapp.com/users/login", {
         // we need to be able to connect this to heroku as well
         email: this.state.email,
         password: this.state.password
@@ -171,7 +171,6 @@ class App extends Component {
                         displayListing={this.displayListing}
                         cities={this.state.cities}
                       />
-                      <Copyright />
                     </div>
                   );
                 } else {
@@ -184,27 +183,46 @@ class App extends Component {
                 }
               }}
             />
-            <Route
-              path="/profile"
+            {/* <Route
+              path="/profile/"
               render={props => {
                 if (localStorage.token) {
                   return (
                     <div>
-                      <ProfileContainer displayProfile={this.displayProfile} />
-                      <Copyright />
+                      <ProfileContainer {...props} />
                     </div>
                   );
                 } else {
                   return (
                     <div>
                       <Landing />
-                      <Copyright />
                     </div>
                   );
                 }
               }}
-            />{" "}
-            */}
+            /> */}
+            <Route
+              path="/profile/:id"
+              // // history={browserHistory}
+              // render={props => {
+              //   if (localStorage.token) {
+              //     return (
+              //       <div>
+              //         <ProfileContainer />
+              //         <Copyright />
+              //       </div>
+              //     );
+              //   } else {
+              //     return (
+              //       <div>
+              //         <Landing />
+              //         <Copyright />
+              //       </div>
+              //     );
+              //   }
+              // }}
+              component={ProfileContainer}
+            />
           </Switch>
         </div>
       </div>

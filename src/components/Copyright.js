@@ -4,7 +4,7 @@ class copyright extends Component {
     render() {
         return (
             <div className="copyright">
-                <p>Copywrite BCJM, 2019, WDI 51</p>
+                <p>Copyright BCJM, 2019, WDI 51</p>
             </div>
         );
     }

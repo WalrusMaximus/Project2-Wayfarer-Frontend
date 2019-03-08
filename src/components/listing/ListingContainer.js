@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CitiesContainer from './CitiesContainer';
 import Listing from './Listing';
+import Copyright from '../Copyright'
 import PostContainer from './PostContainer';
 import { Grid } from 'semantic-ui-react';
 
@@ -18,6 +19,7 @@ export default class ListingContainer extends Component {
             <PostContainer />
           </Grid.Column>
         </Grid>
+        <Copyright />
       </div>
     )
   }

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container, List, Header, Image } from "semantic-ui-react";
-// import ProfilePic from './ProfilePic';
 
 export default class Profile extends Component {
   render() {
+    
     let headerMargin = {
       marginTop: "5%"
     };
@@ -17,7 +17,7 @@ export default class Profile extends Component {
             <List.Item align="center">
               <List.Content>
                 <List.Icon align="center" name="user" />
-                <h2 />
+                {this.props.data.userName}
               </List.Content>
             </List.Item>
             <List.Item align="center">
@@ -29,7 +29,7 @@ export default class Profile extends Component {
             <List.Item align="center">
               <List.Content align="center">
                 <List.Icon align="center" name="mail" />
-                <a href="#">rando@wayfarer.com </a>
+                <a href="#">{this.props.data.email}</a>
               </List.Content>
             </List.Item>
           </List>
