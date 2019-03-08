@@ -4,6 +4,10 @@ import { Segment } from 'semantic-ui-react'
 
 
 export default class CitiesContainer extends Component {
+
+  
+
+
   render() {
     let cityComponents = this.props.cities.map((city, index) => {
       return (
@@ -11,6 +15,7 @@ export default class CitiesContainer extends Component {
           displayListing={this.props.displayListing}
           city={city} key={index}
           // on click update state in listing container and filter posts based on update city
+          setCityId={this.props.setCityId}
         />
       )
     })
