@@ -5,10 +5,10 @@ import { Segment } from 'semantic-ui-react'
 
 export default class CitiesContainer extends Component {
   render() {
-    let cityComponents = this.props.cities.map((city) => {
+    let cityComponents = this.props.cities.map((city, index) => {
       return(
         <City displayListing={this.props.displayListing}
-            city={city}/>
+            city={city} key={index}/>
       )
     })
 
