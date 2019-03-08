@@ -20,7 +20,9 @@ class App extends Component {
     user: null,
     redirect: false,
     cities: [],
-    posts: []
+    posts: [],
+    title: "",
+    content: ""
   }
 
   componentDidMount() {

@@ -10,7 +10,7 @@ export default class CitiesContainer extends Component {
         <City
           displayListing={this.props.displayListing}
           city={city} key={index}
-          // on click update state in listing container and filter posts based on update city
+        // on click update state in listing container and filter posts based on update city
         />
       )
     })

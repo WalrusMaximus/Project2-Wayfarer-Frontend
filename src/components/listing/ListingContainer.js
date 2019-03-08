@@ -6,6 +6,7 @@ import PostContainer from './PostContainer';
 import { Grid } from 'semantic-ui-react';
 
 export default class ListingContainer extends Component {
+
   render() {
 
     let backgroundStyle = {

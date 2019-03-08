@@ -36,11 +36,11 @@ export default class PostContainer extends Component {
               <Modal.Description>
                 <Form>
                   <Form.Field>
-                    <label>Password</label>
-                    <input name='password' placeholder='Password' onChange={this.props.handleInput} />
+                    <label>Title</label>
+                    <input name='title' placeholder='Title' onChange={this.props.handleInput} />
                   </Form.Field>
-                  <Form.TextArea label='About' placeholder='Tell us more about you...' onChange={this.props.handleInput} />
-                  <Button type='submit' onClick={this.props.handleLogIn}>Post</Button>
+                  <Form.TextArea placeholder='Tell us more about this city...' onChange={this.props.handleInput} />
+                  <Button type='submit' onClick={this.props.handleNewPost}>Post</Button>
                 </Form>
               </Modal.Description>
             </Modal.Content>
