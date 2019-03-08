@@ -1,9 +1,22 @@
 import React, { Component } from 'react'
 import Post from '../Post'
-import { Segment, Menu, Button, Icon, Modal, Form, Image, Header } from 'semantic-ui-react'
+import { Segment, Button, Modal, Form } from 'semantic-ui-react'
 
 export default class PostContainer extends Component {
   render() {
+
+    let postComponents = this.props.posts.map((post, index) => {
+      return (
+        <Post
+          displayPosts={this.props.displayPosts}
+          post={post} key={index}
+        />
+      )
+    })
+
+    let style = {
+      margin: '1rem'
+    }
 
     let headerStyle = {
       display: 'inline-block',
@@ -11,20 +24,11 @@ export default class PostContainer extends Component {
 
     let buttonStyle = {
       float: 'right'
-
-    }
-
-    let formStyle = {
-      width: '80%',
-      marginLeft: '10%',
-      marginRight: '10%',
-      marginTop: '5%',
-      marginBottom: '5%'
     }
 
     return (
       <div>
-        <Segment>
+        <Segment style={style}>
           <h2 style={headerStyle}>Posts</h2>
           <Modal trigger={<Button style={buttonStyle}>New Post</Button>}>
             <Modal.Header>Tell us about *City*</Modal.Header>
@@ -42,6 +46,10 @@ export default class PostContainer extends Component {
             </Modal.Content>
           </Modal>
           <Post />
+          <Segment>
+            <h1>Hello world</h1>
+            <div>{postComponents}</div>
+          </Segment>
         </Segment>
       </div>
     )

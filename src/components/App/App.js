@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'
+// import { BrowserRouter as Router } from 'react-router-dom'
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import axios from 'axios'
@@ -7,10 +7,8 @@ import Header from '../Header';
 import Copyright from '../Copyright'
 import Landing from '../landing/Landing'
 import ListingContainer from '../listing/ListingContainer'
-import PostContainer from '../profile/ProfileContainer'
 import './App.css';
 import ProfileContainer from '../profile/ProfileContainer';
-import SignIn from '../SignIn';
 
 class App extends Component {
   state = {
@@ -21,7 +19,8 @@ class App extends Component {
     isLoggedIn: false,
     user: null,
     redirect: false,
-    cities: []
+    cities: [],
+    posts: []
   }
 
   componentDidMount() {
@@ -49,6 +48,7 @@ class App extends Component {
       })
     }
     this.displayListing();
+    this.displayPosts();
   }
 
   handleInput = (event) => {
@@ -113,25 +113,27 @@ class App extends Component {
           cities: res.data
         })
       })
-      .catch(error => {
-        console.log('Error fetching and parsing data for listings', error);
+      .catch(err => {
+        console.log('Error fetching and parsing data for listings', err);
       });
   }
 
-  // displayPosts = () => {
-  //   axios.get('https://damp-citadel-74040.herokuapp.com/posts')
-  //     .then(response => {
-  //       console.log('found posts')
-  //       // res.send(response);
-  //     })
-  //     .catch(error => {
-  //       console.log('Error fetching and parsing data for posts', error);
-  //   });
-  // }
+  displayPosts = () => {
+    axios.get('https://damp-citadel-74040.herokuapp.com/posts')
+      .then((res) => {
+        console.log('found posts')
+        this.setState({
+          posts: res.data
+        })
+      })
+      .catch(err => {
+        console.log('Error fetching and parsing data for posts', err);
+      });
+  }
 
 
   render() {
-    
+
     return (
       <div>
         {/* <div>{cityComponents}</div> */}
@@ -164,8 +166,10 @@ class App extends Component {
                 if (localStorage.token) {
                   return (
                     <div>
-                      <ListingContainer displayListing={this.displayListing} 
-                      cities={this.state.cities}/>
+                      <ListingContainer
+                        cities={this.state.cities}
+                        posts={this.state.posts}
+                      />
                       <Copyright />
                     </div>
                   )
@@ -197,11 +201,7 @@ class App extends Component {
                   )
                 }
               }}
-<<<<<<< HEAD
             />
-=======
-            /> */}
->>>>>>> 842dac02d078b444471055203c38d9ad3b0d291c
           </Switch>
         </div>
       </div>
