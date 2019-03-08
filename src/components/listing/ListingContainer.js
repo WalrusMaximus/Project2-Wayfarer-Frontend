@@ -6,7 +6,6 @@ import PostContainer from './PostContainer';
 import { Grid } from 'semantic-ui-react';
 
 export default class ListingContainer extends Component {
-
   // update state based on selected city 
   // place for listing and posts once they come back from req
   // state = {
@@ -14,9 +13,7 @@ export default class ListingContainer extends Component {
   //   posts: [],
   //   city: this.props.CitiesContainer
   // }
-
-  
-
+ 
   render() {
 
     let backgroundStyle = {
