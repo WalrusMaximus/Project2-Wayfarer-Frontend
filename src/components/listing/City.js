@@ -3,6 +3,7 @@ import { Segment, Image, Divider, SegmentGroup } from 'semantic-ui-react'
 
 
 export default class City extends Component {
+
   render() {
 
     let style = {
@@ -11,7 +12,8 @@ export default class City extends Component {
 
     return (
       <SegmentGroup>
-        <a onClick={() => { console.log(`clicked ${this.props.city.name}`) }}>
+        {/* on click we call function from app.js and pass in the city._id to send it back to app.ja*/}
+        <a onClick={ () => {this.props.setCityId(this.props.city._id)}}>
           <Segment style={style}>
             <h2>{this.props.city.name}</h2>
           </Segment>
