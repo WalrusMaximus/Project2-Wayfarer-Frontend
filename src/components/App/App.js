@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Switch, Route, Redirect, browserHistory } from "react-router-dom";
+import React, { Component } from 'react';
+// import { BrowserRouter as Router } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import axios from "axios";
-import Header from "../Header";
-import Copyright from "../Copyright";
-import Landing from "../landing/Landing";
-import ListingContainer from "../listing/ListingContainer";
-import PostContainer from "../profile/ProfileContainer";
-import "./App.css";
-import ProfileContainer from "../profile/ProfileContainer";
-import SignIn from "../SignIn";
+import axios from 'axios'
+import Header from '../Header';
+import Copyright from '../Copyright'
+import Landing from '../landing/Landing'
+import ListingContainer from '../listing/ListingContainer'
+import './App.css';
+import ProfileContainer from '../profile/ProfileContainer';
 
 class App extends Component {
   state = {
@@ -21,8 +19,9 @@ class App extends Component {
     isLoggedIn: false,
     user: null,
     redirect: false,
-    cities: []
-  };
+    cities: [],
+    posts: []
+  }
 
   componentDidMount() {
     if (localStorage.token) {
@@ -49,6 +48,7 @@ class App extends Component {
       });
     }
     this.displayListing();
+    this.displayPosts();
   }
 
   handleInput = event => {
@@ -116,21 +116,23 @@ class App extends Component {
           cities: res.data
         });
       })
-      .catch(error => {
-        console.log("Error fetching and parsing data for listings", error);
+      .catch(err => {
+        console.log('Error fetching and parsing data for listings', err);
       });
-  };
+  }
 
-  // displayPosts = () => {
-  //   axios.get('https://damp-citadel-74040.herokuapp.com/posts')
-  //     .then(response => {
-  //       console.log('found posts')
-  //       // res.send(response);
-  //     })
-  //     .catch(error => {
-  //       console.log('Error fetching and parsing data for posts', error);
-  //   });
-  // }
+  displayPosts = () => {
+    axios.get('https://damp-citadel-74040.herokuapp.com/posts')
+      .then((res) => {
+        console.log('found posts')
+        this.setState({
+          posts: res.data
+        })
+      })
+      .catch(err => {
+        console.log('Error fetching and parsing data for posts', err);
+      });
+  }
 
   render() {
     return (
@@ -168,8 +170,8 @@ class App extends Component {
                   return (
                     <div>
                       <ListingContainer
-                        displayListing={this.displayListing}
                         cities={this.state.cities}
+                        posts={this.state.posts}
                       />
                     </div>
                   );
