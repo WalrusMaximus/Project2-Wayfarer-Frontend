@@ -31,7 +31,7 @@ export default class PostContainer extends Component {
         <Segment style={style}>
           <h2 style={headerStyle}>Posts</h2>
           <Modal trigger={<Button style={buttonStyle}>New Post</Button>}>
-            <Modal.Header>Tell us about *City*</Modal.Header>
+            <Modal.Header>Tell us about {this.props.cityId}</Modal.Header>
             <Modal.Content>
               <Modal.Description>
                 <Form>

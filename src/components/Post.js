@@ -17,11 +17,11 @@ export default class Post extends Component {
     } else {
       return (
         <div>
-          <SegmentGroup>
+          {/* <SegmentGroup>
             <Segment>
-              <h2></h2>
+              <h2>There is no content</h2>
             </Segment>
-          </SegmentGroup>
+          </SegmentGroup> */}
         </div>
       )
     }
