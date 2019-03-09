@@ -46,10 +46,9 @@ export default class PostContainer extends Component {
             </Modal.Content>
           </Modal>
           <Post />
-          <Segment>
-            <h1>Hello world</h1>
+          {/* <Segment> */}
             <div>{postComponents}</div>
-          </Segment>
+          {/* </Segment> */}
         </Segment>
       </div>
     )

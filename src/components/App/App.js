@@ -133,17 +133,25 @@ class App extends Component {
 
   displayPosts = () => {
     // use state to dynamically create cityID route, which will render new posts from the respective city
-    axios.get(`https://damp-citadel-74040.herokuapp.com/posts/${this.state.cityId}`)
+    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
       .then((res) => {
         console.log('found posts')
+        // filter the response and only add posts matching the cityId, which we get from above.
+        let posts = res.data.filter(ele => {
+          return ele.city._id === this.state.cityId;
+        })
+
         this.setState({
-          posts: res.data
+          posts
         })
       })
       .catch(err => {
-        console.log('Error fetching and parsing data for posts', err);
+        console.log('Error displaying for posts when click on city', err);
       });
   }
+
+  // axios.get(`https://damp-citadel-74040.herokuapp.com/posts/city/${this.state.cityId}`)
+
 
   render() {
     return (
