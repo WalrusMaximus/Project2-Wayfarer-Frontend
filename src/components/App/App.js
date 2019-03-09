@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router } from 'react-router-dom'
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import axios from 'axios'
@@ -21,6 +20,7 @@ class App extends Component {
     redirect: false,
     cities: [],
     posts: [],
+    profileId: null,
     cityId: '5c819cce15c78e000cb26497'
   }
 
@@ -28,10 +28,11 @@ class App extends Component {
     if (localStorage.token) {
       axios({
         method: "get",
-        url: `http://localhost:3001/users/`,
+        url: `https://damp-citadel-74040.herokuapp.com/users/`,
         headers: { authorization: `Bearer ${localStorage.token}` }
       })
         .then(response => {
+          console.log('App successfully recieves a response')
           this.setState({
             isLoggedIn: true,
             user: response.data.user // ????? .user?
@@ -61,7 +62,7 @@ class App extends Component {
   handleSignUp = event => {
     event.preventDefault();
     axios
-      .post("http://localhost:3001/users/signup", {
+      .post("https://damp-citadel-74040.herokuapp.com/users/signup", {
         name: this.state.name,
         userName: this.state.userName,
         email: this.state.email,
@@ -93,7 +94,8 @@ class App extends Component {
         this.setState({
           isLoggedIn: true,
           user: response.data.user,
-          redirect: true
+          redirect: true,
+          profileId: response.data.user._id
         });
       })
       .catch(err => console.log(err));
@@ -106,6 +108,7 @@ class App extends Component {
       isLoggedIn: false
     });
     localStorage.clear();
+    window.location.href = "/"
   };
 
   displayListing = () => {
@@ -163,6 +166,7 @@ class App extends Component {
           handleLogIn={this.handleLogIn}
           handleInput={this.handleInput}
           handleLogOut={this.handleLogOut}
+          profileId={this.state.profileId || null}
         />
         <div className="body">
           <Switch>
@@ -171,7 +175,7 @@ class App extends Component {
               path="/"
               render={props => {
                 if (localStorage.token) {
-                  return <Redirect to="/profile" />;
+                  return <Redirect to={`/profile/${this.state.user._id}`} />;
                 } else {
                   return (
                     <div>
@@ -205,44 +209,8 @@ class App extends Component {
                 }
               }}
             />
-            {/* <Route
-              path="/profile/"
-              render={props => {
-                if (localStorage.token) {
-                  return (
-                    <div>
-                      <ProfileContainer {...props} />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div>
-                      <Landing />
-                    </div>
-                  );
-                }
-              }}
-            /> */}
             <Route
               path="/profile/:id"
-              // // history={browserHistory}
-              // render={props => {
-              //   if (localStorage.token) {
-              //     return (
-              //       <div>
-              //         <ProfileContainer />
-              //         <Copyright />
-              //       </div>
-              //     );
-              //   } else {
-              //     return (
-              //       <div>
-              //         <Landing />
-              //         <Copyright />
-              //       </div>
-              //     );
-              //   }
-              // }}
               component={ProfileContainer}
             />
           </Switch>

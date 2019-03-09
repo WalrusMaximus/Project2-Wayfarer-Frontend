@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Dropdown, Menu, Search } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Dropdown, Menu, Search } from 'semantic-ui-react'
 import Signin from './SignIn'
 import Signup from './SignUp'
 
@@ -9,7 +10,6 @@ export default class Header extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-
   render() {
 
     let menuStyle = {
@@ -17,18 +17,22 @@ export default class Header extends Component {
       marginBottom: 0
     }
 
-    const { activeItem } = this.state
+    console.log(this.props.profileId);
+
+    const url = {
+      path: `/profile/${this.props.profileId}`
+    }
 
     if (this.props.isLoggedIn) {
       return (
         <Menu style={menuStyle} inverted>
-          <Menu.Item>
+          <Menu.Item as={ Link } name="profile" to="/listings">            
             <img src='https://react.semantic-ui.com/logo.png' />
           </Menu.Item>
 
-          <Menu.Item>
+          <Menu.Item as={ Link } name="profile" to="/listings/">
             Wayfarer
-        </Menu.Item>
+          </Menu.Item>
 
           <Menu.Item>
             <Search size='small' />
@@ -37,8 +41,8 @@ export default class Header extends Component {
           <Menu.Menu position='right'>
             <Dropdown item text='Profile'>
               <Dropdown.Menu>
-                <Dropdown.Item>View Profile</Dropdown.Item>
-                <Dropdown.Item onClick={this.props.handleLogOut}>Sign Out</Dropdown.Item>
+                <Dropdown.Item as={ Link } name="profile" to="/">Profile</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.handleLogOut} >Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>
