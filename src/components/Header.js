@@ -26,16 +26,12 @@ export default class Header extends Component {
     if (this.props.isLoggedIn) {
       return (
         <Menu style={menuStyle} inverted>
-          <Link to = "/listings/">
-          <Menu.Item>            
+          <Menu.Item as={ Link } name="profile" to="/listings">            
             <img src='https://react.semantic-ui.com/logo.png' />
           </Menu.Item>
-          </Link>
 
-          <Menu.Item>
-          <Link to = "/listings/">
+          <Menu.Item as={ Link } name="profile" to="/listings/">
             Wayfarer
-          </Link>
           </Menu.Item>
 
           <Menu.Item>
