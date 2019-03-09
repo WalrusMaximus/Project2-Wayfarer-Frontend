@@ -168,6 +168,8 @@ class App extends Component {
               render={props => {
                 if (this.state.isLoggedIn) {
                   return <Redirect to={`/profile/${this.state.user._id}`} />;
+                } else if (localStorage.token) {
+                  return <Redirect to={`/listings/`} />;
                 } else {
                   return (
                     <div>
