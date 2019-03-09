@@ -21,6 +21,7 @@ class App extends Component {
     cities: [],
     posts: [],
     profileId: null,
+    cityId: '5c819cce15c78e000cb26497'
   }
 
   componentDidMount() {
@@ -124,8 +125,18 @@ class App extends Component {
       });
   }
 
+  // id passed in from city component
+  setCityId = (id) => {
+    console.log(id);
+    // we call this state cityID...
+    this.setState({
+      cityId: id
+    })
+  }
+
   displayPosts = () => {
-    axios.get('https://damp-citadel-74040.herokuapp.com/posts')
+    // use state to dynamically create cityID route, which will render new posts from the respective city
+    axios.get(`https://damp-citadel-74040.herokuapp.com/posts/${this.state.cityId}`)
       .then((res) => {
         console.log('found posts')
         this.setState({
@@ -176,6 +187,7 @@ class App extends Component {
                       <ListingContainer
                         cities={this.state.cities}
                         posts={this.state.posts}
+                        setCityId={this.setCityId}
                       />
                     </div>
                   );
