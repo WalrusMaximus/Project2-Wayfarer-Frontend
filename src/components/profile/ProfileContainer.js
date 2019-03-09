@@ -20,7 +20,7 @@ export default class ProfileContainer extends Component {
 
 
   componentDidMount() {
-    axios.get(`https://damp-citadel-74040.herokuapp.com/users//profile/${this.props.match.params.id}`)
+    axios.get(`https://damp-citadel-74040.herokuapp.com/users/profile/${this.props.match.params.id}`)
     // this will ultimately point to users/profile/:id
       .then((res) => {
         console.log('found user')
