@@ -21,7 +21,9 @@ class App extends Component {
     cities: [],
     posts: [],
     profileId: null,
-    cityId: '5c819cce15c78e000cb26497'
+    cityId: '5c819cce15c78e000cb26497',
+    title: '',
+    content: ''
   }
 
   componentDidMount() {
@@ -55,8 +57,9 @@ class App extends Component {
 
   handleInput = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
+    console.log(event.target.value);
   };
 
   handleSignUp = event => {
@@ -136,16 +139,42 @@ class App extends Component {
 
   displayPosts = () => {
     // use state to dynamically create cityID route, which will render new posts from the respective city
-    axios.get(`https://damp-citadel-74040.herokuapp.com/posts/${this.state.cityId}`)
+    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
       .then((res) => {
         console.log('found posts')
+        // filter the response and only add posts matching the cityId, which we get from above.
+        let posts = res.data.filter(ele => {
+          return ele.city._id === this.state.cityId;
+        })
+
         this.setState({
-          posts: res.data
+          posts
         })
       })
       .catch(err => {
-        console.log('Error fetching and parsing data for posts', err);
+        console.log('Error displaying for posts when click on city', err);
       });
+  }
+
+  handleNewPost = () => event => {
+    // create a new post pulling the form data from the modal and add to database
+    event.preventDefault();
+    axios.post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
+        title: this.state.title,
+        content: this.state.content,
+        city: "5c816fecf875f8000ce1e10a",
+        user: '5c819cce15c78e000cb26497'
+      })
+      .then(res => {
+        // this.setState({
+        //   title: this.state.title,
+        //   content: this.state.content
+        // })
+        console.log(res)
+      })
+      .catch(err => {
+        console.log("Beep")
+      })
   }
 
   render() {
@@ -190,6 +219,8 @@ class App extends Component {
                         cities={this.state.cities}
                         posts={this.state.posts}
                         setCityId={this.setCityId}
+                        handleInput={this.handleInput}
+                        handleNewPost={this.handleNewPost}
                       />
                     </div>
                   );

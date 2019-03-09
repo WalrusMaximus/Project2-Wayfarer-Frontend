@@ -36,6 +36,8 @@ export default class ListingContainer extends Component {
             <PostContainer
               displayPosts={this.props.displayPosts}
               posts={this.props.posts}
+              handleInput={this.props.handleInput}
+              handleNewPost={this.props.handleNewPost}
             />
           </Grid.Column>
         </Grid>

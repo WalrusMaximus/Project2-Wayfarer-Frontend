@@ -17,8 +17,6 @@ export default class Header extends Component {
       marginBottom: 0
     }
 
-    console.log(this.props.profileId);
-
     const url = {
       path: `/profile/${this.props.profileId}`
     }

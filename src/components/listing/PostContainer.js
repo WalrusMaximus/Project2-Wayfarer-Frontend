@@ -3,7 +3,13 @@ import Post from '../Post'
 import { Segment, Button, Modal, Form } from 'semantic-ui-react'
 
 export default class PostContainer extends Component {
+  // state = {
+  //   title: '',
+  //   content: ''
+  // }
+
   render() {
+    
 
     let postComponents = this.props.posts.map((post, index) => {
       return (
@@ -39,7 +45,7 @@ export default class PostContainer extends Component {
                     <label>Title</label>
                     <input name='title' placeholder='Title' onChange={this.props.handleInput} />
                   </Form.Field>
-                  <Form.TextArea placeholder='Tell us more about this city...' onChange={this.props.handleInput} />
+                  <Form.TextArea name='content' placeholder='Tell us more about this city...' onChange={this.props.handleInput} />
                   <Button type='submit' onClick={this.props.handleNewPost}>Post</Button>
                 </Form>
               </Modal.Description>
