@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, SegmentGroup } from 'semantic-ui-react'
+import { Segment, SegmentGroup, Button } from 'semantic-ui-react'
 
 
 export default class Post extends Component {
@@ -10,6 +10,8 @@ export default class Post extends Component {
           <SegmentGroup>
             <Segment>
               <h2>{this.props.post.title}</h2>
+              <Button>Edit</Button>
+              <Button>Delete</Button>
             </Segment>
           </SegmentGroup>
         </div>

@@ -57,6 +57,10 @@ class App extends Component {
     this.displayPosts();
   }
 
+  componentDidUpdate() {
+    console.log("City ID", this.state.cityId)
+  }
+
   handleInput = event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -132,21 +136,26 @@ class App extends Component {
 
   // id passed in from city component
   setCityId = (id) => {
-    console.log(id);
+    console.log("id", id);
     // we call this state cityID...
     this.setState({
       cityId: id
     })
+
+    this.displayPosts();
   }
 
   displayPosts = () => {
     // use state to dynamically create cityID route, which will render new posts from the respective city
     axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
       .then((res) => {
-        console.log('found posts')
         // filter the response and only add posts matching the cityId, which we get from above.
-        let posts = res.data.filter(ele => {
-          return ele;
+        const posts = [];
+
+        res.data.filter(ele => {
+          return ele.city._id === this.state.cityId;
+        }).map((ele) => {
+          return posts.push(ele);
         })
 
         this.setState({
@@ -162,11 +171,11 @@ class App extends Component {
     // create a new post pulling the form data from the modal and add to database
     event.preventDefault();
     axios.post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
-        title: this.state.title,
-        content: this.state.content,
-        city: this.state.cityId,
-        user: this.state.profileId
-      })
+      title: this.state.title,
+      content: this.state.content,
+      city: this.state.cityId,
+      user: this.state.profileId
+    })
       .then(res => {
         // this.setState({
         //   title: this.state.title,
