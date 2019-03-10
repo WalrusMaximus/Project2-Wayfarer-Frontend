@@ -9,7 +9,7 @@ export default class PostContainer extends Component {
   // }
 
   render() {
-    
+
 
     let postComponents = this.props.posts.map((post, index) => {
       return (
@@ -51,9 +51,8 @@ export default class PostContainer extends Component {
               </Modal.Description>
             </Modal.Content>
           </Modal>
-          <Post />
           {/* <Segment> */}
-            <div>{postComponents}</div>
+          <div>{postComponents}</div>
           {/* </Segment> */}
         </Segment>
       </div>
