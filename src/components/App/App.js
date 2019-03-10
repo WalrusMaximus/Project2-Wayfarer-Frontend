@@ -21,11 +21,11 @@ class App extends Component {
     cities: [],
     posts: [],
     profileId: null,
-    cityId: '5c819cce15c78e000cb26497',
+    cityId: '5c816fecf875f8000ce1e10a',
     title: '',
     content: '',
     city: "5c816fecf875f8000ce1e10a",
-    userPost: '5c819cce15c78e000cb26497'
+    userPost: '5c819cce15c78e000cb26497',
   }
 
   componentDidMount() {
@@ -55,10 +55,6 @@ class App extends Component {
     }
     this.displayListing();
     this.displayPosts();
-  }
-
-  componentDidUpdate() {
-    console.log("City ID", this.state.cityId)
   }
 
   handleInput = event => {
@@ -136,11 +132,12 @@ class App extends Component {
 
   // id passed in from city component
   setCityId = (id) => {
-    console.log("id", id);
+    // console.log("id", id);
     // we call this state cityID...
     this.setState({
       cityId: id
     })
+    console.log(this.state.cityId)
 
     this.displayPosts();
   }
@@ -186,7 +183,8 @@ class App extends Component {
       .catch(err => {
         console.log("Beep")
       })
-  }
+  } 
+
 
   render() {
     return (
@@ -221,7 +219,33 @@ class App extends Component {
               }}
             />
             <Route
-              path="/listings"
+              exact path="/listings"
+              render={props => {
+                if (localStorage.token) {
+                  return (
+                    <div>
+                      <ListingContainer
+                        cities={this.state.cities}
+                        posts={this.state.posts}
+                        setCityId={this.setCityId}
+                        handleInput={this.handleInput}
+                        handleNewPost={this.handleNewPost}
+                        cityId={this.state.cityId}
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div>
+                      <Landing />
+                      <Copyright />
+                    </div>
+                  );
+                }
+              }}
+            />
+            {/* <Route
+              path="/listings/:id"
               render={props => {
                 if (localStorage.token) {
                   return (
@@ -244,7 +268,7 @@ class App extends Component {
                   );
                 }
               }}
-            />
+            /> */}
             <Route
               path="/profile/:id"
               component={ProfileContainer}

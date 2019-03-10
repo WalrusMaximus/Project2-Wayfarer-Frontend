@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import City from './City';
-import { Segment } from 'semantic-ui-react'
 
 
 export default class CitiesContainer extends Component {

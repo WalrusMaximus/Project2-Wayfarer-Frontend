@@ -28,7 +28,7 @@ export default class ProfileContainer extends Component {
           profileId: res.data[0]
           // this will pull just the res.data when it targets correctly
         })
-      console.log(this.state.profileId)
+      // console.log(this.state.profileId)
       })
       .catch(error => {
         console.log('Error fetching and parsing data for listings', error);

@@ -4,15 +4,9 @@ import Listing from './Listing';
 import Copyright from '../Copyright'
 import PostContainer from './PostContainer';
 import { Grid } from 'semantic-ui-react';
+import axios from 'axios'
 
 export default class ListingContainer extends Component {
-  // update state based on selected city 
-  // place for listing and posts once they come back from req
-  // state = {
-  //   listing: [],
-  //   posts: [],
-  //   city: this.props.CitiesContainer
-  // }
  
   render() {
 
@@ -32,7 +26,9 @@ export default class ListingContainer extends Component {
             />
           </Grid.Column>
           <Grid.Column width={11}>
-            <Listing />
+            <Listing 
+            cityId={this.props.cityId}
+            />
             <PostContainer
               displayPosts={this.props.displayPosts}
               posts={this.props.posts}
