@@ -35,6 +35,7 @@ export default class ListingContainer extends Component {
             <Listing />
             <PostContainer
               displayPosts={this.props.displayPosts}
+              createPosts={this.props.createPosts}
               posts={this.props.posts}
             />
           </Grid.Column>

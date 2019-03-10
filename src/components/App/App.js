@@ -21,7 +21,8 @@ class App extends Component {
     cities: [],
     posts: [],
     profileId: null,
-    cityId: '5c819cce15c78e000cb26497'
+    cityId: '5c819cce15c78e000cb26497',
+    listing: []
   }
 
   componentDidMount() {
@@ -51,11 +52,14 @@ class App extends Component {
     }
     this.displayListing();
     this.displayPosts();
+    // 
+    this.createPost();
   }
 
   handleInput = event => {
     this.setState({
       [event.target.name]: event.target.value
+      // post: event.target.value
     });
   };
 
@@ -111,19 +115,7 @@ class App extends Component {
     window.location.href = "/"
   };
 
-  displayListing = () => {
-    axios
-      .get("https://damp-citadel-74040.herokuapp.com/cities")
-      .then(res => {
-        console.log("found listings");
-        this.setState({
-          cities: res.data
-        });
-      })
-      .catch(err => {
-        console.log('Error fetching and parsing data for listings', err);
-      });
-  }
+
 
   // id passed in from city component
   setCityId = (id) => {
@@ -136,7 +128,7 @@ class App extends Component {
 
   displayPosts = () => {
     // use state to dynamically create cityID route, which will render new posts from the respective city
-    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
+    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`) // axios.get(`https://damp-citadel-74040.herokuapp.com/posts/city/${this.state.cityId}`)
       .then((res) => {
         console.log('found posts')
         // filter the response and only add posts matching the cityId, which we get from above.
@@ -151,9 +143,51 @@ class App extends Component {
       .catch(err => {
         console.log('Error displaying for posts when click on city', err);
       });
+  } 
+
+
+  displayCity = () => {
+    // use state to dynamically create cityID route, which will render new posts from the respective city
+    axios.get(`https://damp-citadel-74040.herokuapp.com/cities`)
+      .then((res) => {
+        console.log('found city to display')
+        // filter the response and only add posts matching the cityId, which we get from above.
+        let listing = res.data.filter(ele => {
+          return ele.city._id === this.state.cityId;
+        })
+
+        this.setState({
+          listing
+        })
+      })
+      .catch(err => {
+        console.log('Error displaying for posts when click on city', err);
+      });
   }
 
-  // axios.get(`https://damp-citadel-74040.herokuapp.com/posts/city/${this.state.cityId}`)
+  
+  
+
+  
+
+
+  // createPost = () => event => {
+  //   event.preventDefault();
+  //   axios
+  //     .post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
+  //       title: this.state.title,
+  //       content: this.state.content
+  //     })
+  //     .then(response => {
+  //       console.log('I am creating this post:', response);
+  //       // localStorage.token = response.data.signedJwt;
+
+  //     //   this.setState({
+  //     //     post: 
+  //     //   });
+  //     })
+  //     .catch(err => console.log('no post created:', err));
+  // };
 
 
   render() {
@@ -196,6 +230,7 @@ class App extends Component {
                         cities={this.state.cities}
                         posts={this.state.posts}
                         setCityId={this.setCityId}
+                        createPost={this.createPost}
                       />
                     </div>
                   );

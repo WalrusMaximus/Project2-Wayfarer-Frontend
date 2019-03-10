@@ -7,7 +7,7 @@ import Signup from './SignUp'
 
 export default class Header extends Component {
   state = {}
-
+  // for dropdown menu
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {

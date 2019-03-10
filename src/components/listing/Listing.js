@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Image, Header } from 'semantic-ui-react'
 
 export default class Listing extends Component {
+  
   render() {
 
     let style = {
