@@ -24,8 +24,13 @@ class App extends Component {
     cityId: '5c816fecf875f8000ce1e10a',
     title: '',
     content: '',
-    city: "5c816fecf875f8000ce1e10a",
-    userPost: '5c819cce15c78e000cb26497',
+    city: [{
+      _id: "5c819cce15c78e000cb26497",
+      name: "San Francisco",
+      country: "United States of America",
+      imageUrl: "https://images.unsplash.com/photo-1519227355453-8f982e425321?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2978&q=80"
+    }],
+    userPost: '5c819cce15c78e000cb26497'
   }
 
   componentDidMount() {
@@ -53,6 +58,7 @@ class App extends Component {
         isLoggedIn: false
       });
     }
+    this.displayCity();
     this.displayListing();
     this.displayPosts();
   }
@@ -140,6 +146,8 @@ class App extends Component {
     console.log(this.state.cityId)
 
     this.displayPosts();
+    this.displayCity();
+    console.log(this.state.city);
   }
 
   displayPosts = () => {
@@ -151,6 +159,49 @@ class App extends Component {
 
         res.data.filter(ele => {
           return ele.city._id === this.state.cityId;
+        }).map((ele) => {
+          return posts.push(ele);
+        })
+
+        this.setState({
+          posts
+        })
+      })
+      .catch(err => {
+        console.log('Error displaying for posts when click on city', err);
+      });
+  }
+
+  displayCity = () => {
+    // use state to dynamically create cityID route, which will render new posts from the respective city
+    axios.get(`https://damp-citadel-74040.herokuapp.com/cities`)
+      .then((res) => {
+        // filter the response and only add posts matching the cityId, which we get from above.
+        const city = [];
+
+        res.data.filter(ele => {
+          return ele._id === this.state.cityId;
+        }).map((ele) => {
+          return city.push(ele);
+        })
+
+        this.setState({
+          city
+        })
+      })
+      .catch(err => {
+        console.log('Error displaying for posts when click on city', err);
+      });
+  }
+
+  displayUserPosts = () => {
+    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
+      .then((res) => {
+        // filter the response and only add posts matching the cityId, which we get from above.
+        const posts = [];
+
+        res.data.filter(ele => {
+          return ele.user._id === this.state.profileId;
         }).map((ele) => {
           return posts.push(ele);
         })
@@ -225,6 +276,7 @@ class App extends Component {
                   return (
                     <div>
                       <ListingContainer
+                        city={this.state.city}
                         cities={this.state.cities}
                         posts={this.state.posts}
                         setCityId={this.setCityId}

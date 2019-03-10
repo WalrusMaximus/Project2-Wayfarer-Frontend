@@ -42,9 +42,9 @@ export default class Listing extends Component {
     return (
       <div>
         <Segment style={style}>
-          <Image src={'https://amp.businessinsider.com/images/5ad8ae04cd862425008b4898-750-563.jpg'} size='medium' />
-          <Header as='h2'>test</Header>
-          <Header as='h3'>United States</Header>
+          <Image src={this.props.city.imageUrl} size='medium' />
+          <Header as='h2'>{this.props.city.name}</Header>
+          <Header as='h3'>{this.props.city.country}</Header>
         </Segment>
       </div>
     )
