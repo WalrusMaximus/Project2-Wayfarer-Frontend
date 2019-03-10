@@ -23,7 +23,9 @@ class App extends Component {
     profileId: null,
     cityId: '5c819cce15c78e000cb26497',
     title: '',
-    content: ''
+    content: '',
+    city: "5c816fecf875f8000ce1e10a",
+    userPost: '5c819cce15c78e000cb26497'
   }
 
   componentDidMount() {
@@ -144,7 +146,7 @@ class App extends Component {
         console.log('found posts')
         // filter the response and only add posts matching the cityId, which we get from above.
         let posts = res.data.filter(ele => {
-          return ele.city._id === this.state.cityId;
+          return ele;
         })
 
         this.setState({
@@ -156,14 +158,14 @@ class App extends Component {
       });
   }
 
-  handleNewPost = () => event => {
+  handleNewPost = event => {
     // create a new post pulling the form data from the modal and add to database
     event.preventDefault();
     axios.post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
         title: this.state.title,
         content: this.state.content,
-        city: "5c816fecf875f8000ce1e10a",
-        user: '5c819cce15c78e000cb26497'
+        city: this.state.cityId,
+        user: this.state.profileId
       })
       .then(res => {
         // this.setState({
