@@ -3,34 +3,13 @@ import Post from '../Post'
 import { Segment, Button, Modal, Form } from 'semantic-ui-react'
 
 export default class PostContainer extends Component {
-
-  state = {
-    posts: [],
-    listing: []
-  }
-
-  onInputChange = (event) => {
-    this.setState({
-      post: event.target.value
-    })
-  }
-  onFormSubmit = (event) => {
-    event.preventDefault();
-    console.log('click onFormSubmit')
-    // let post = this.state.post
-    // // call props.createPost and pass in post variable. we acccess a prop we have not seen before that is a function. depending on where the post is called from, we have to give it access to function of prop object
-    // // we need to supply prop from parent component, that parent is the todoscontainer
-    // this.state.createPost();
-    // this.setState({
-    //     posts: '',
-    // })
-  
-    //capture the post input and set it in state
-    // close modal on submit button
-  
-}
+  // state = {
+  //   title: '',
+  //   content: ''
+  // }
 
   render() {
+
 
     let postComponents = this.props.posts.map((post, index) => {
       return (
@@ -77,18 +56,15 @@ export default class PostContainer extends Component {
                     {/* <input name='title' placeholder='Title' onChange={this.props.handleInput} /> */}
                     <input onChange={this.onInputChange} type="text" placeholder="Title of Post" value={this.state.post}/>
                   </Form.Field>
-
-                  <Form.TextArea placeholder='Tell us more about this city...' onChange={this.props.handleInput} value={this.state.post}/>
-                  
+                  <Form.TextArea name='content' placeholder='Tell us more about this city...' onChange={this.props.handleInput} />
                   <Button type='submit' onClick={this.props.handleNewPost}>Post</Button>
 
                 </Form>
               </Modal.Description>
             </Modal.Content>
           </Modal>
-          <Post />
           {/* <Segment> */}
-            <div>{postComponents}</div>
+          <div>{postComponents}</div>
           {/* </Segment> */}
         </Segment>
       </div>

@@ -22,7 +22,10 @@ class App extends Component {
     posts: [],
     profileId: null,
     cityId: '5c819cce15c78e000cb26497',
-    listing: []
+    title: '',
+    content: '',
+    city: "5c816fecf875f8000ce1e10a",
+    userPost: '5c819cce15c78e000cb26497'
   }
 
   componentDidMount() {
@@ -56,11 +59,15 @@ class App extends Component {
     this.createPost();
   }
 
+  componentDidUpdate() {
+    console.log("City ID", this.state.cityId)
+  }
+
   handleInput = event => {
     this.setState({
-      [event.target.name]: event.target.value
-      // post: event.target.value
+      [event.target.name]: event.target.value,
     });
+    console.log(event.target.value);
   };
 
   handleSignUp = event => {
@@ -119,21 +126,26 @@ class App extends Component {
 
   // id passed in from city component
   setCityId = (id) => {
-    console.log(id);
+    console.log("id", id);
     // we call this state cityID...
     this.setState({
       cityId: id
     })
+
+    this.displayPosts();
   }
 
   displayPosts = () => {
     // use state to dynamically create cityID route, which will render new posts from the respective city
     axios.get(`https://damp-citadel-74040.herokuapp.com/posts`) // axios.get(`https://damp-citadel-74040.herokuapp.com/posts/city/${this.state.cityId}`)
       .then((res) => {
-        console.log('found posts')
         // filter the response and only add posts matching the cityId, which we get from above.
-        let posts = res.data.filter(ele => {
+        const posts = [];
+
+        res.data.filter(ele => {
           return ele.city._id === this.state.cityId;
+        }).map((ele) => {
+          return posts.push(ele);
         })
 
         this.setState({
@@ -165,30 +177,26 @@ class App extends Component {
       });
   }
 
-  
-  
-
-  
-
-
-  // createPost = () => event => {
-  //   event.preventDefault();
-  //   axios
-  //     .post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
-  //       title: this.state.title,
-  //       content: this.state.content
-  //     })
-  //     .then(response => {
-  //       console.log('I am creating this post:', response);
-  //       // localStorage.token = response.data.signedJwt;
-
-  //     //   this.setState({
-  //     //     post: 
-  //     //   });
-  //     })
-  //     .catch(err => console.log('no post created:', err));
-  // };
-
+  handleNewPost = event => {
+    // create a new post pulling the form data from the modal and add to database
+    event.preventDefault();
+    axios.post("https://damp-citadel-74040.herokuapp.com/posts/createpost", {
+      title: this.state.title,
+      content: this.state.content,
+      city: this.state.cityId,
+      user: this.state.profileId
+    })
+      .then(res => {
+        // this.setState({
+        //   title: this.state.title,
+        //   content: this.state.content
+        // })
+        console.log(res)
+      })
+      .catch(err => {
+        console.log("Beep")
+      })
+  }
 
   render() {
     return (
@@ -208,8 +216,10 @@ class App extends Component {
               exact
               path="/"
               render={props => {
-                if (localStorage.token) {
+                if (this.state.isLoggedIn) {
                   return <Redirect to={`/profile/${this.state.user._id}`} />;
+                } else if (localStorage.token) {
+                  return <Redirect to={`/listings/`} />;
                 } else {
                   return (
                     <div>
@@ -230,7 +240,8 @@ class App extends Component {
                         cities={this.state.cities}
                         posts={this.state.posts}
                         setCityId={this.setCityId}
-                        createPost={this.createPost}
+                        handleInput={this.handleInput}
+                        handleNewPost={this.handleNewPost}
                       />
                     </div>
                   );

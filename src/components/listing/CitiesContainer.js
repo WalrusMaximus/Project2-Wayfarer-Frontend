@@ -5,7 +5,7 @@ import { Segment } from 'semantic-ui-react'
 
 export default class CitiesContainer extends Component {
 
-  
+
 
 
   render() {
