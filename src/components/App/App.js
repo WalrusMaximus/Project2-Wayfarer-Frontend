@@ -194,26 +194,6 @@ class App extends Component {
       });
   }
 
-  displayUserPosts = () => {
-    axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
-      .then((res) => {
-        // filter the response and only add posts matching the cityId, which we get from above.
-        const posts = [];
-
-        res.data.filter(ele => {
-          return ele.user._id === this.state.profileId;
-        }).map((ele) => {
-          return posts.push(ele);
-        })
-
-        this.setState({
-          posts
-        })
-      })
-      .catch(err => {
-        console.log('Error displaying for posts when click on city', err);
-      });
-  }
 
   handleNewPost = event => {
     // create a new post pulling the form data from the modal and add to database
