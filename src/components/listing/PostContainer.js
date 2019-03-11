@@ -14,8 +14,12 @@ export default class PostContainer extends Component {
       )
     })
 
+    let divStyle = {
+      cursor: 'pointer'
+    }
+
     let style = {
-      margin: '1rem'
+      margin: '1rem',
     }
 
     let headerStyle = {
@@ -45,7 +49,7 @@ export default class PostContainer extends Component {
               </Modal.Description>
             </Modal.Content>
           </Modal>
-          <div>{postComponents}</div>
+          <div style={divStyle}>{postComponents}</div>
         </Segment>
       </div>
     )

@@ -17,10 +17,10 @@ class App extends Component {
     password: "",
     isLoggedIn: false,
     user: {
-      _id: "5c816fecf875f8000ce1e10a",
-      name: "Joseph",
-      email: "joseph@gmail.com",
-      userName: "joe8",
+      _id: "5c85fb679c4ccd0017e3bd42",
+      name: "Max Power",
+      userName: "maxpower99",
+      email: "maxpower@gmail.com",
       avatarUrl: "https://ichef.bbci.co.uk/news/660/cpsprodpb/EF92/production/_103503316_canetoadfrontal.jpg",
     },
     redirect: false,
@@ -224,64 +224,74 @@ class App extends Component {
 
 
   render() {
-    const displayContent = (
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => {
-            if (this.state.isLoggedIn) {
-              return <Redirect to={`/profile/${this.state.user._id}`} />;
-            } else if (localStorage.token) {
-              return <Redirect to={`/listings/`} />;
-            } else {
-              return (
-                <div>
-                  <Landing />
-                  <Copyright />
-                </div>
-              );
-            }
-          }}
+    return (
+      <div>
+        <Header
+          handleSignUp={this.handleSignUp}
+          isLoggedIn={this.state.isLoggedIn}
+          handleLogIn={this.handleLogIn}
+          handleInput={this.handleInput}
+          handleLogOut={this.handleLogOut}
+          profileId={this.state.profileId || null}
         />
-        <Route
-          exact path="/listings"
-          render={() => {
-            if (localStorage.token) {
-              return (
-                <div>
-                  <ListingContainer
-                    city={this.state.city}
-                    cities={this.state.cities}
-                    posts={this.state.posts}
-                    setCityId={this.setCityId}
-                    handleInput={this.handleInput}
-                    handleNewPost={this.handleNewPost}
-                    cityId={this.state.cityId}
-                  />
-                </div>
-              );
-            } else {
-              return (
-                <div>
-                  <Landing />
-                  <Copyright />
-                </div>
-              );
-            }
-          }}
-        />
-        <Route
-          path="/profile/:id"
-          render={
-            () => {
-              return (
-                <ProfileContainer user={this.state.user} />
-              )
-            }
-          }
-        />
-        {/* <Route
+        <div className="body">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => {
+                if (this.state.isLoggedIn) {
+                  return <Redirect to={`/profile/${this.state.user ? this.state.user._id : "5c85fb679c4ccd0017e3bd42"}`} />;
+                } else if (localStorage.token) {
+                  return <Redirect to={`/listings/`} />;
+                } else {
+                  return (
+                    <div>
+                      <Landing />
+                      <Copyright />
+                    </div>
+                  );
+                }
+              }}
+            />
+            <Route
+              exact path="/listings"
+              render={() => {
+                if (localStorage.token) {
+                  return (
+                    <div>
+                      <ListingContainer
+                        city={this.state.city}
+                        cities={this.state.cities}
+                        posts={this.state.posts}
+                        setCityId={this.setCityId}
+                        handleInput={this.handleInput}
+                        handleNewPost={this.handleNewPost}
+                        cityId={this.state.cityId}
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div>
+                      <Landing />
+                      <Copyright />
+                    </div>
+                  );
+                }
+              }}
+            />
+            <Route
+              path="/profile/:id"
+              render={
+                () => {
+                  return (
+                    <ProfileContainer user={this.state.user} />
+                  )
+                }
+              }
+            />
+            {/* <Route
               path="/listings/:id"
               render={props => {
                 if (localStorage.token) {
@@ -306,21 +316,7 @@ class App extends Component {
                 }
               }}
             /> */}
-      </Switch>
-    )
-
-    return (
-      <div>
-        <Header
-          handleSignUp={this.handleSignUp}
-          isLoggedIn={this.state.isLoggedIn}
-          handleLogIn={this.handleLogIn}
-          handleInput={this.handleInput}
-          handleLogOut={this.handleLogOut}
-          profileId={this.state.profileId || null}
-        />
-        <div className="body">
-          {displayContent}
+          </Switch>
         </div>
       </div>
     );

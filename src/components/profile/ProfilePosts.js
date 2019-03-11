@@ -45,7 +45,7 @@ export default class ProfilePosts extends Component {
     return (
       <div>
         <Segment style={style}>
-          <h2>Stuff</h2>
+          <h2>My Posts</h2>
           <div>{postComponents}</div>
         </Segment>
       </div>
