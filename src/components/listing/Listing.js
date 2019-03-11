@@ -10,30 +10,22 @@ export default class Listing extends Component {
       imageUrl: "https://images.unsplash.com/photo-1525876285538-4cc52d170c0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
     }
   }
-  
 
   componentDidMount() {
-    console.log(this.state.foundCity)
     axios.get(`https://damp-citadel-74040.herokuapp.com/cities/${this.props.cityId}`)
-    // this will ultimately point to users/profile/:id
+      // this will ultimately point to users/profile/:id
       .then((res) => {
-        console.log('found city listing')
         this.setState({
           foundCity: res.data[0]
           // this will pull just the res.data when it targets correctly
         })
-      console.log("im not crazy, this is actually happening")
       })
       .catch(error => {
         console.log('Could not find city', error);
-    });
-    console.log(this.state.foundCity)
+      });
   };
-  
+
   render() {
-
-
-    // console.log(this.props.data)
 
     let style = {
       margin: '1rem'

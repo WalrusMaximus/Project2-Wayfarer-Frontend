@@ -16,12 +16,18 @@ class App extends Component {
     email: "",
     password: "",
     isLoggedIn: false,
-    user: null,
+    user: {
+      _id: "5c816fecf875f8000ce1e10a",
+      name: "Joseph",
+      email: "joseph@gmail.com",
+      userName: "joe8",
+      avatarUrl: "https://ichef.bbci.co.uk/news/660/cpsprodpb/EF92/production/_103503316_canetoadfrontal.jpg",
+    },
     redirect: false,
     cities: [],
     posts: [],
     profileId: null,
-    cityId: '5c816fecf875f8000ce1e10a',
+    cityId: '5c819cce15c78e000cb26497',
     title: '',
     content: '',
     city: [{
@@ -30,7 +36,7 @@ class App extends Component {
       country: "United States of America",
       imageUrl: "https://images.unsplash.com/photo-1519227355453-8f982e425321?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2978&q=80"
     }],
-    userPost: '5c819cce15c78e000cb26497'
+    userPost: '5c819cce15c78e000cb26497',
   }
 
   componentDidMount() {
@@ -44,10 +50,10 @@ class App extends Component {
           console.log('App successfully recieves a response')
           this.setState({
             isLoggedIn: true,
-            user: response.data.user // ????? .user?
+            user: response.data.user,
           });
         })
-        .catch(err => {
+        .catch(() => {
           this.setState({
             isLoggedIn: false
           });
@@ -58,7 +64,6 @@ class App extends Component {
         isLoggedIn: false
       });
     }
-    this.displayCity();
     this.displayListing();
     this.displayPosts();
   }
@@ -67,7 +72,6 @@ class App extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(event.target.value);
   };
 
   handleSignUp = event => {
@@ -80,7 +84,6 @@ class App extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log(response);
         localStorage.token = response.data.signedJwt;
 
         this.setState({
@@ -93,10 +96,9 @@ class App extends Component {
 
   handleLogIn = event => {
     event.preventDefault();
-    console.log("its working!!!!!!!!!!!");
+
     axios
       .post("https://damp-citadel-74040.herokuapp.com/users/login", {
-        // we need to be able to connect this to heroku as well
         email: this.state.email,
         password: this.state.password
       })
@@ -108,6 +110,8 @@ class App extends Component {
           redirect: true,
           profileId: response.data.user._id
         });
+
+        console.log(this.state.user);
       })
       .catch(err => console.log(err));
   };
@@ -147,6 +151,8 @@ class App extends Component {
 
     this.displayPosts();
     this.displayCity();
+    this.displayListing();
+
     console.log(this.state.city);
   }
 
@@ -214,69 +220,68 @@ class App extends Component {
       .catch(err => {
         console.log("Beep")
       })
-  } 
+  }
 
 
   render() {
-    return (
-      <div>
-        {/* <div>{cityComponents}</div> */}
-        <Header
-          handleSignUp={this.handleSignUp}
-          isLoggedIn={this.state.isLoggedIn}
-          handleLogIn={this.handleLogIn}
-          handleInput={this.handleInput}
-          handleLogOut={this.handleLogOut}
-          profileId={this.state.profileId || null}
+    const displayContent = (
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            if (this.state.isLoggedIn) {
+              return <Redirect to={`/profile/${this.state.user._id}`} />;
+            } else if (localStorage.token) {
+              return <Redirect to={`/listings/`} />;
+            } else {
+              return (
+                <div>
+                  <Landing />
+                  <Copyright />
+                </div>
+              );
+            }
+          }}
         />
-        <div className="body">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => {
-                if (this.state.isLoggedIn) {
-                  return <Redirect to={`/profile/${this.state.user._id}`} />;
-                } else if (localStorage.token) {
-                  return <Redirect to={`/listings/`} />;
-                } else {
-                  return (
-                    <div>
-                      <Landing />
-                      <Copyright />
-                    </div>
-                  );
-                }
-              }}
-            />
-            <Route
-              exact path="/listings"
-              render={props => {
-                if (localStorage.token) {
-                  return (
-                    <div>
-                      <ListingContainer
-                        city={this.state.city}
-                        cities={this.state.cities}
-                        posts={this.state.posts}
-                        setCityId={this.setCityId}
-                        handleInput={this.handleInput}
-                        handleNewPost={this.handleNewPost}
-                        cityId={this.state.cityId}
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div>
-                      <Landing />
-                      <Copyright />
-                    </div>
-                  );
-                }
-              }}
-            />
-            {/* <Route
+        <Route
+          exact path="/listings"
+          render={() => {
+            if (localStorage.token) {
+              return (
+                <div>
+                  <ListingContainer
+                    city={this.state.city}
+                    cities={this.state.cities}
+                    posts={this.state.posts}
+                    setCityId={this.setCityId}
+                    handleInput={this.handleInput}
+                    handleNewPost={this.handleNewPost}
+                    cityId={this.state.cityId}
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <div>
+                  <Landing />
+                  <Copyright />
+                </div>
+              );
+            }
+          }}
+        />
+        <Route
+          path="/profile/:id"
+          render={
+            () => {
+              return (
+                <ProfileContainer user={this.state.user} />
+              )
+            }
+          }
+        />
+        {/* <Route
               path="/listings/:id"
               render={props => {
                 if (localStorage.token) {
@@ -301,11 +306,21 @@ class App extends Component {
                 }
               }}
             /> */}
-            <Route
-              path="/profile/:id"
-              component={ProfileContainer}
-            />
-          </Switch>
+      </Switch>
+    )
+
+    return (
+      <div>
+        <Header
+          handleSignUp={this.handleSignUp}
+          isLoggedIn={this.state.isLoggedIn}
+          handleLogIn={this.handleLogIn}
+          handleInput={this.handleInput}
+          handleLogOut={this.handleLogOut}
+          profileId={this.state.profileId || null}
+        />
+        <div className="body">
+          {displayContent}
         </div>
       </div>
     );

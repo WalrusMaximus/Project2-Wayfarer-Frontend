@@ -9,15 +9,13 @@ export default class ProfilePosts extends Component {
   }
 
   componentDidMount() {
-
-    console.log(this.props.data)
-
     axios.get(`https://damp-citadel-74040.herokuapp.com/posts`)
       .then((res) => {
         // filter the response and only add posts matching the cityId, which we get from above.
         const posts = [];
         res.data.filter(ele => {
-          return ele.user._id === '5c816fecf875f8000ce1e10a'
+          const userId = ele.user ? ele.user._id : '';
+          return userId === this.props.user._id;
         }).map((ele) => {
           return posts.push(ele);
         })
@@ -29,17 +27,16 @@ export default class ProfilePosts extends Component {
       .catch(err => {
         console.log('Error displaying for posts when you load the profile', err);
       });
-    };
-    
-  render() {
+  };
 
-    let postComponents = this.state.posts.map((post, index) => {
+  render() {
+    let postComponents = this.state.posts ? this.state.posts.map((post, index) => {
       return (
         <Post
           post={post} key={index}
         />
       )
-    })
+    }) : <p>Posts not found</p>;
 
     let style = {
       margin: '1rem'
@@ -48,10 +45,8 @@ export default class ProfilePosts extends Component {
     return (
       <div>
         <Segment style={style}>
-          {/* <Segment> */}
           <h2>Stuff</h2>
           <div>{postComponents}</div>
-          {/* </Segment> */}
         </Segment>
       </div>
     )
