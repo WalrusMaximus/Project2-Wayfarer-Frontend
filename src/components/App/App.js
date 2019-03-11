@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // 
     if (localStorage.token) {
       axios({
         method: "get",
@@ -53,9 +54,9 @@ class App extends Component {
         isLoggedIn: false
       });
     }
+    
     this.displayListing();
     this.displayPosts();
-    // 
     this.createPost();
   }
 
@@ -63,6 +64,7 @@ class App extends Component {
     console.log("City ID", this.state.cityId)
   }
 
+  // globally used function to capture form input
   handleInput = event => {
     this.setState({
       [event.target.name]: event.target.value,
