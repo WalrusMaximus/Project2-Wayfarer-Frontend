@@ -13,7 +13,7 @@ export default class Profile extends Component {
     return (
       <Container>
         <Header as="h2" textAlign="center" style={headerMargin} />
-        <Image src="./images/default_avatar.png" size="medium" circular />
+        <Image src={this.props.user && this.props.user.avatarUrl ? this.props.user.avatarUrl : "./images/default_avatar.png"} size="medium" circular />
         <Header as="h3" textAlign="left">
           <List>
             <List.Item align="center">

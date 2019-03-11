@@ -3,6 +3,7 @@ import { Segment, Modal } from 'semantic-ui-react'
 
 export default class Post extends Component {
   render() {
+
     if (this.props.post) {
       return (
         <div>
