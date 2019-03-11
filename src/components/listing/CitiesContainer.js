@@ -4,9 +4,6 @@ import City from './City';
 
 export default class CitiesContainer extends Component {
 
-
-
-
   render() {
     let cityComponents = this.props.cities.map((city, index) => {
       return (
@@ -27,15 +24,10 @@ export default class CitiesContainer extends Component {
 
     return (
       <div>
-        {/* <Segment.Group raised>
-          <Segment> */}
         <h1>Cities</h1>
         <div style={style}>
           {cityComponents}
         </div>
-
-        {/* </Segment>
-        </Segment.Group> */}
       </div >
     )
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Image, Divider, SegmentGroup } from 'semantic-ui-react'
-
+import { Segment, SegmentGroup } from 'semantic-ui-react'
 
 export default class City extends Component {
 
@@ -8,6 +7,7 @@ export default class City extends Component {
 
     let style = {
       color: 'black',
+      cursor: 'pointer',
     }
     /* eslint-disable */
     return (
