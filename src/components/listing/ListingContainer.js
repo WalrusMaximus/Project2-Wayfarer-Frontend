@@ -6,15 +6,16 @@ import PostContainer from './PostContainer';
 import { Grid } from 'semantic-ui-react';
 
 export default class ListingContainer extends Component {
-  // update state based on selected city 
-  // place for listing and posts once they come back from req
-  // state = {
-  //   listing: [],
-  //   posts: [],
-  //   city: this.props.CitiesContainer
-  // }
- 
+
   render() {
+    let cityComponents = this.props.city.map((city, index) => {
+      return (
+        <Listing
+          displayCity={this.props.displayCity}
+          city={city} key={index}
+        />
+      )
+    })
 
     let backgroundStyle = {
       backgroundColor: '#f2f2f2',
@@ -32,7 +33,7 @@ export default class ListingContainer extends Component {
             />
           </Grid.Column>
           <Grid.Column width={11}>
-            <Listing />
+            {cityComponents}
             <PostContainer
               displayPosts={this.props.displayPosts}
               createPosts={this.props.createPosts}

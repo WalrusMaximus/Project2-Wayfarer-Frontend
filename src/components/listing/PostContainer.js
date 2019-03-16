@@ -3,14 +3,8 @@ import Post from '../Post'
 import { Segment, Button, Modal, Form } from 'semantic-ui-react'
 
 export default class PostContainer extends Component {
-  // state = {
-  //   title: '',
-  //   content: ''
-  // }
 
   render() {
-
-
     let postComponents = this.props.posts.map((post, index) => {
       return (
         <Post
@@ -20,17 +14,12 @@ export default class PostContainer extends Component {
       )
     })
 
-    // let listComponents = this.props.city.map((listing, index) => {
-    //   return (
-    //     <Listing 
-    //     displayListing={this.props.displayListing}
-    //     listing={listing} key={index}
-    //     />
-    //   )
-    // })
+    let divStyle = {
+      cursor: 'pointer'
+    }
 
     let style = {
-      margin: '1rem'
+      margin: '1rem',
     }
 
     let headerStyle = {
@@ -63,22 +52,9 @@ export default class PostContainer extends Component {
               </Modal.Description>
             </Modal.Content>
           </Modal>
-          {/* <Segment> */}
-          <div>{postComponents}</div>
-          {/* </Segment> */}
+          <div style={divStyle}>{postComponents}</div>
         </Segment>
       </div>
     )
   }
 }
-
-//axios /posts/createpost
-
-{/* <Modal
-            trigger={<Button style={buttonStyle}>New Post</Button>}
-            header='Post Comment'
-            content={<Form>
-              <Form.TextArea style={formStyle} placeholder='Comment...' />
-            </Form>}
-            actions={['Cancel', { key: 'done', content: 'Post', positive: true }]}
-/> */}

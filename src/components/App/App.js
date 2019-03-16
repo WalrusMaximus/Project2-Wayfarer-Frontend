@@ -16,7 +16,13 @@ class App extends Component {
     email: "",
     password: "",
     isLoggedIn: false,
-    user: null,
+    user: {
+      _id: "5c85fb679c4ccd0017e3bd42",
+      name: "Max Power",
+      userName: "maxpower99",
+      email: "maxpower@gmail.com",
+      avatarUrl: "https://ichef.bbci.co.uk/news/660/cpsprodpb/EF92/production/_103503316_canetoadfrontal.jpg",
+    },
     redirect: false,
     cities: [],
     posts: [],
@@ -24,8 +30,13 @@ class App extends Component {
     cityId: '5c819cce15c78e000cb26497',
     title: '',
     content: '',
-    city: "5c816fecf875f8000ce1e10a",
-    userPost: '5c819cce15c78e000cb26497'
+    city: [{
+      _id: "5c819cce15c78e000cb26497",
+      name: "San Francisco",
+      country: "United States of America",
+      imageUrl: "https://images.unsplash.com/photo-1519227355453-8f982e425321?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2978&q=80"
+    }],
+    userPost: '5c819cce15c78e000cb26497',
   }
 
   componentDidMount() {
@@ -40,10 +51,10 @@ class App extends Component {
           console.log('App successfully recieves a response')
           this.setState({
             isLoggedIn: true,
-            user: response.data.user // ????? .user?
+            user: response.data.user,
           });
         })
-        .catch(err => {
+        .catch(() => {
           this.setState({
             isLoggedIn: false
           });
@@ -60,16 +71,10 @@ class App extends Component {
     this.createPost();
   }
 
-  componentDidUpdate() {
-    console.log("City ID", this.state.cityId)
-  }
-
-  // globally used function to capture form input
   handleInput = event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
-    console.log(event.target.value);
   };
 
   handleSignUp = event => {
@@ -82,7 +87,6 @@ class App extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log(response);
         localStorage.token = response.data.signedJwt;
 
         this.setState({
@@ -95,10 +99,9 @@ class App extends Component {
 
   handleLogIn = event => {
     event.preventDefault();
-    console.log("its working!!!!!!!!!!!");
+
     axios
       .post("https://damp-citadel-74040.herokuapp.com/users/login", {
-        // we need to be able to connect this to heroku as well
         email: this.state.email,
         password: this.state.password
       })
@@ -110,6 +113,8 @@ class App extends Component {
           redirect: true,
           profileId: response.data.user._id
         });
+
+        console.log(this.state.user);
       })
       .catch(err => console.log(err));
   };
@@ -128,13 +133,18 @@ class App extends Component {
 
   // id passed in from city component
   setCityId = (id) => {
-    console.log("id", id);
+    // console.log("id", id);
     // we call this state cityID...
     this.setState({
       cityId: id
     })
+    console.log(this.state.cityId)
 
     this.displayPosts();
+    this.displayCity();
+    this.displayListing();
+
+    console.log(this.state.city);
   }
 
   displayPosts = () => {
@@ -179,6 +189,29 @@ class App extends Component {
       });
   }
 
+  displayCity = () => {
+    // use state to dynamically create cityID route, which will render new posts from the respective city
+    axios.get(`https://damp-citadel-74040.herokuapp.com/cities`)
+      .then((res) => {
+        // filter the response and only add posts matching the cityId, which we get from above.
+        const city = [];
+
+        res.data.filter(ele => {
+          return ele._id === this.state.cityId;
+        }).map((ele) => {
+          return city.push(ele);
+        })
+
+        this.setState({
+          city
+        })
+      })
+      .catch(err => {
+        console.log('Error displaying for posts when click on city', err);
+      });
+  }
+
+
   handleNewPost = event => {
     // create a new post pulling the form data from the modal and add to database
     event.preventDefault();
@@ -200,10 +233,10 @@ class App extends Component {
       })
   }
 
+
   render() {
     return (
       <div>
-        {/* <div>{cityComponents}</div> */}
         <Header
           handleSignUp={this.handleSignUp}
           isLoggedIn={this.state.isLoggedIn}
@@ -217,9 +250,9 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={props => {
+              render={() => {
                 if (this.state.isLoggedIn) {
-                  return <Redirect to={`/profile/${this.state.user._id}`} />;
+                  return <Redirect to={`/profile/${this.state.user ? this.state.user._id : "5c85fb679c4ccd0017e3bd42"}`} />;
                 } else if (localStorage.token) {
                   return <Redirect to={`/listings/`} />;
                 } else {
@@ -233,7 +266,44 @@ class App extends Component {
               }}
             />
             <Route
-              path="/listings"
+              exact path="/listings"
+              render={() => {
+                if (localStorage.token) {
+                  return (
+                    <div>
+                      <ListingContainer
+                        city={this.state.city}
+                        cities={this.state.cities}
+                        posts={this.state.posts}
+                        setCityId={this.setCityId}
+                        handleInput={this.handleInput}
+                        handleNewPost={this.handleNewPost}
+                        cityId={this.state.cityId}
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div>
+                      <Landing />
+                      <Copyright />
+                    </div>
+                  );
+                }
+              }}
+            />
+            <Route
+              path="/profile/:id"
+              render={
+                () => {
+                  return (
+                    <ProfileContainer user={this.state.user} />
+                  )
+                }
+              }
+            />
+            {/* <Route
+              path="/listings/:id"
               render={props => {
                 if (localStorage.token) {
                   return (
@@ -256,11 +326,7 @@ class App extends Component {
                   );
                 }
               }}
-            />
-            <Route
-              path="/profile/:id"
-              component={ProfileContainer}
-            />
+            /> */}
           </Switch>
         </div>
       </div>
